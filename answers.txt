@@ -1,1 +1,10 @@
 Answers to the text questions go here.
+
+Part One — Syntax and Style
+
+d- When is the Flesch Kincaid score *not* a valid, robust or reliable estimator of text difficulty? 
+Give two conditions. (Text answer, 200 words maximum).
+
+The Flesch-Kincaid Grade Level measures the readability of a text mainly based on sentence and word length. However, this can lead to inaccurate estimations in some cases.
+For example, a text with long words might receive a high score, suggesting greater difficulty, but those words could be simple and familiar to native speakers. While Flesch-Kincaid is designed for English, other languages often use longer words to express simple meanings, making the score unreliable in those contexts.
+On the other hand, a text with short words and sentences might receive a low score, implying it is easy to read. Yet those words could be highly technical or specific to a particular field, making the text difficult for general readers. It can also be the case that the text has complex grammar or syntactic structures that increase its real difficulty, despite its short sentences or simple words.
