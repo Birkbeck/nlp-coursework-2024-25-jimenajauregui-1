@@ -8,3 +8,31 @@ Give two conditions. (Text answer, 200 words maximum).
 The Flesch-Kincaid Grade Level measures the readability of a text mainly based on sentence and word length. However, this can lead to inaccurate estimations in some cases.
 For example, a text with long words might receive a high score, suggesting greater difficulty, but those words could be simple and familiar to native speakers. While Flesch-Kincaid is designed for English, other languages often use longer words to express simple meanings, making the score unreliable in those contexts.
 On the other hand, a text with short words and sentences might receive a low score, implying it is easy to read. Yet those words could be highly technical or specific to a particular field, making the text difficult for general readers. It can also be the case that the text has complex grammar or syntactic structures that increase its real difficulty, despite its short sentences or simple words.
+
+Part two - Feature Extraction and Classification
+
+f- Explain your tokenizer function and discuss its performance.
+
+My tokenizer, custom_tokenizer_nltk(text), was built using NLTK with a focus on cleaning and standardizing text to improve classification performance.
+The function uses word_tokenize to split the text into word-level tokens.
+First I applied lowercasing to reduce redundancy in the vocabulary between same tokens in lower and upper cases, and removed non-alphabetic tokens like numbers, punctuations and alphanumeric tokens to focus on meaningful words.
+Then I applied stopword removal for common English stopwords that don't have semantic relevance for classification. I moved this paramenter from the vectorizer as including stopwords in the tokenizer was giving better results that will be detailed below.
+Also I included a length filtering to dismiss very short words which are unlikely to help classification. After testing performance with different values, it was set to 1-character tokens.
+Finally, I applied lemmatization to reduce words to lemmas so that semantically similar words are grouped.
+
+This tokenizer was passed to the TfidfVectorizer (with max_features=3000, ngram_range=(1, 3), min_df=3) and evaluated using both Random Forest and Linear SVM classifiers.
+The best performance was achieved with the SVM classifier with a macro-average F1 score of 0.627 and macro avg of 0.82.
+If considering the best performance of both classifiers, not setting min_df to eliminate very unfrequent words, showed slightly decrease of F1 score for SVM (0.625) but considerably better for the RF classifier (0.5051)
+On the contrary, including trigrams was better for both classifiers.
+The custom tokenizer showed to be more efficient and much faster the spaCy-based approach I also tried.
+Other tunnings such as applying part-of-speech (POS) for more accurate lemmatization and joining  multi-word common expressions (like Prime Minister), were also more computationally expensive and didn't offer improvements.
+Also when English stopwords parameter was applied in the vectorizer instead of the tokenizer accuracy it showed that while Random Forest F1 score increased Random Forest classifier
+to 0.513, for the linear classifier it dropped to 0.608.
+As a suggested improvement, if weighted_class: balanced is applied to training, both classifiers perform better with the SVM reaching f1 score of 0.717. This is due the dataset being highly imbalance with Liberal Democrats as a very minor class.
+In conclusion, the simpler NLTK-based tokenizer, enhanced with lemmatization and stopword removal, delivered the best trade-off between speed and classification performance.
+
+
+
+
+
+
