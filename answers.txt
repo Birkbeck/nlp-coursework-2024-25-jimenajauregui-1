@@ -26,6 +26,7 @@ When min_df was not applied, the SVM F1 score slightly dropped to 0.625, but the
 Using trigrams consistently improved performance across both classifiers.
 In contrast, using a spaCy-based tokenizer significantly slowed down training and did not yield better performance.
 Other experiments that did not lead to improvements were: apllying POS-specific lemmatization, that was much slower and not beneficial; merging multi-word expressions (like “Prime Minister”) which reduced performance and moving stopword removal to the vectorizer, which slightly improved Random Forest but lowered SVM accuracy.
+Also, apllying the reducuction of very common words to the vectorizer did not have any impact.
 As a potential improvement, using class_weight='balanced' during training (to address class imbalance) significantly improved results, especially for the underrepresented Liberal Democrat class. With this adjustment, SVM’s F1 score increased significantly to 0.717.
 In conclusion, the NLTK-based tokenizer, with lemmatization and stopword removal, achieved the best trade-off between speed and classification performance. It outperformed more complex approaches and worked well within the 3000-feature limit.
 
